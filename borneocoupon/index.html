@@ -4,21 +4,37 @@
   </head>
 
   <body>
-    {% for greeting in greetings %}
-      {% if greeting.author %}
-        <b>{{ greeting.author.nickname }}</b> wrote:
-      {% else %}
-        An anonymous person wrote:
-      {% endif %}
-      <blockquote>{{ greeting.content|escape }}</blockquote>
+    
+	{{ todayDate }}
+	<br>
+	<div>
+	   Today's Discount
+	</div>
+	
+    <form action="/Daily" method="post">
+	<ul>
+	{% for coupon in coupons %}
+	  <li>
+	  <div>
+	     <a href="Deals/{{ coupon.coupon_id|escape }}">{{ coupon.description|escape }}</a>
+	  </div>
+	  <div>
+		 {{ coupon.date_offered|escape }}
+		 {{ coupon.date_expired|escape }}
+		 {{ coupon.current_sold|escape }}
+		 {{ coupon.target_sold|escape }}
+         {{ coupon.value|escape }}
+		 {{ coupon.discounts|escape }}
+	  </div>
+	  
+	  <div>
+	     <input type="button" value="Buy Now">
+	  </div>
+	  </li>
     {% endfor %}
-
-    <form action="/sign" method="post">
-      <div><textarea name="content" rows="3" cols="60"></textarea></div>
-      <div><input type="submit" value="Sign Guestbook"></div>
+	</ul>
+    
     </form>
-
-    <a href="{{ url }}">{{ url_linktext }}</a>
 
   </body>
 </html>
